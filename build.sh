@@ -19,8 +19,11 @@ flutter upgrade
 # Install dependencies
 flutter pub get
 
+# Enable web support
+flutter config --enable-web
+
 # Build Flutter Web
-flutter build web
+flutter build web --release
 
 # Rename the output folder to 'public' for Vercel
 mv build/web public
