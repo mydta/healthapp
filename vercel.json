@@ -3,16 +3,10 @@
   "public": "build/web",
   "routes": [
     {
-      "src": "/manifest.json",
-      "dest": "/manifest.json",
+      "src": "/flutter_bootstrap.js",
+      "dest": "/flutter_bootstrap.js",
       "headers": {
-        "Cache-Control": "public, max-age=3600, must-revalidate"
-      }
-    },
-    {
-      "src": "/flutter.js",
-      "dest": "/flutter.js",
-      "headers": {
+        "Content-Type": "application/javascript",
         "Cache-Control": "public, max-age=31536000, immutable"
       }
     },
@@ -20,7 +14,31 @@
       "src": "/main.dart.js",
       "dest": "/main.dart.js",
       "headers": {
+        "Content-Type": "application/javascript",
         "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/flutter.js",
+      "dest": "/flutter.js",
+      "headers": {
+        "Content-Type": "application/javascript",
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/manifest.json",
+      "dest": "/manifest.json",
+      "headers": {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600, must-revalidate"
+      }
+    },
+    {
+      "src": "/icons/(.*)",
+      "dest": "/icons/$1",
+      "headers": {
+        "Cache-Control": "public, max-age=86400, must-revalidate"
       }
     },
     {
