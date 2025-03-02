@@ -3,6 +3,9 @@
 # Exit on errors
 set -e
 
+# Debugging: Print working directory
+pwd
+
 # Download and extract Flutter
 curl -fsSL https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.19.0-stable.tar.xz | tar -xJ
 
@@ -25,5 +28,11 @@ flutter config --enable-web
 # Build Flutter Web
 flutter build web --release
 
+# **Fix: Remove existing `public/` folder before moving**
+rm -rf public
+
 # Rename the output folder to 'public' for Vercel
 mv build/web public
+
+# Debugging: List files in 'public' to ensure the move was successful
+ls -la public/
