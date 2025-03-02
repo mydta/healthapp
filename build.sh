@@ -1,30 +1,25 @@
 #!/bin/bash
 
-# Exit on errors and print commands
+# Exit on errors and print each command before executing
 set -ex
 
 # Debugging: Print working directory
 pwd
 
-# **Fix: Clone Flutter Properly Instead of Using Preinstalled Version**
+# **Fix: Ensure Flutter is installed using a pre-built release (instead of Git clone)**
 if [ ! -d "flutter" ]; then
-  echo "Flutter not found. Cloning from GitHub..."
-  git clone https://github.com/flutter/flutter.git -b stable --depth 1
-else
-  echo "Flutter is already installed"
+  echo "Flutter not found. Downloading official Flutter 3.29.0..."
+  curl -fsSL https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.29.0-stable.tar.xz | tar -xJ
 fi
 
 # Set Flutter path
 export PATH="$PATH:`pwd`/flutter/bin"
 
-# **Fix: Ensure Git metadata is present**
-cd flutter
-git init
-git remote add origin https://github.com/flutter/flutter.git
-cd ..
-
 # Debugging: Verify Flutter installation
 flutter doctor || { echo "Flutter installation failed"; exit 1; }
+
+# **Fix: Explicitly set Flutter version to avoid "0.0.0-unknown" error**
+flutter --version || { echo "Flutter version issue"; exit 1; }
 
 # Install dependencies
 flutter pub get || { echo "Flutter package install failed"; exit 1; }
