@@ -3,11 +3,19 @@
   "public": "build/web",
   "routes": [
     {
+      "src": "/flutter_service_worker.js",
+      "dest": "/flutter_service_worker.js",
+      "headers": {
+        "Content-Type": "application/javascript",
+        "Cache-Control": "public, max-age=3600, must-revalidate"
+      }
+    },
+    {
       "src": "/flutter_bootstrap.js",
       "dest": "/flutter_bootstrap.js",
       "headers": {
         "Content-Type": "application/javascript",
-        "Cache-Control": "public, max-age=31536000, immutable"
+        "Cache-Control": "public, max-age=3600, must-revalidate"
       }
     },
     {
