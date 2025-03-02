@@ -6,7 +6,7 @@ set -ex
 # Debugging: Print working directory
 pwd
 
-# Ensure Flutter is installed via Git (avoids Git clone error)
+# **Fix: Clone Flutter Properly Instead of Using Preinstalled Version**
 if [ ! -d "flutter" ]; then
   echo "Flutter not found. Cloning from GitHub..."
   git clone https://github.com/flutter/flutter.git -b stable --depth 1
@@ -16,6 +16,12 @@ fi
 
 # Set Flutter path
 export PATH="$PATH:`pwd`/flutter/bin"
+
+# **Fix: Ensure Git metadata is present**
+cd flutter
+git init
+git remote add origin https://github.com/flutter/flutter.git
+cd ..
 
 # Debugging: Verify Flutter installation
 flutter doctor || { echo "Flutter installation failed"; exit 1; }
