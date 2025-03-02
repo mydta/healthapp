@@ -1,9 +1,10 @@
 {
   "version": 2,
+  "public": "build/web",
   "builds": [
     {
-      "src": "Dockerfile",
-      "use": "@vercel/docker"
+      "src": "build/web/**/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -35,9 +36,5 @@
         "Cache-Control": "public, max-age=0, must-revalidate"
       }
     }
-  ],
-  "env": {
-    "FLUTTER_VERSION": "3.29.0",
-    "NODE_ENV": "production"
-  }
+  ]
 }
