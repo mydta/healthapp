@@ -6,29 +6,31 @@ set -e
 # Debugging: Print working directory
 pwd
 
-# Download and extract Flutter
-curl -fsSL https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.19.0-stable.tar.xz | tar -xJ
+# Check if Flutter is already installed to avoid unnecessary downloads
+if [ ! -d "flutter" ]; then
+  echo "Flutter not found. Downloading..."
+  curl -fsSL https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.19.0-stable.tar.xz | tar -xJ
+fi
 
 # Add Flutter to PATH
 export PATH="$PATH:`pwd`/flutter/bin"
 
-# Fix ownership issue in Vercel
-git config --global --add safe.directory /vercel/path0/flutter
-
-# Ensure Flutter is installed and updated
+# Ensure Flutter is installed
 flutter doctor
-flutter upgrade
+
+# Use a fixed version of Flutter instead of upgrading every time (recommended)
+flutter --version
 
 # Install dependencies
 flutter pub get
 
-# Enable web support
+# Enable web support (only needed once, remove if already configured)
 flutter config --enable-web
 
 # Build Flutter Web
 flutter build web --release
 
-# **Fix: Remove existing `public/` folder before moving**
+# Ensure old 'public/' directory is removed before moving the new build
 rm -rf public
 
 # Rename the output folder to 'public' for Vercel
