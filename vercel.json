@@ -1,5 +1,14 @@
 {
-    "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
-    "redirects": [{ "source": "/index.html", "destination": "/", "statusCode": 301 }]
-  }
-  
+  "builds": [
+    {
+      "src": "build/web/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/build/web/index.html"
+    }
+  ]
+}
